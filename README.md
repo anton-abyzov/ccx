@@ -1,156 +1,96 @@
-# ccx
+# CCX -- Community Claude Code eXtended
 
-**A SpecWeave project** - where specifications drive development.
+Open-source, language-native reimplementations of Claude Code's AI coding assistant. Born from a source map leak, built by the community.
 
-## Quick Start
+## Backstory
 
-Your project is initialized! Now describe what you want to build.
+On March 31, 2026, security researcher Chaofan Shou ([@Fried_rice](https://x.com/Fried_rice/status/2038894956459290963)) discovered that Anthropic's npm package `@anthropic-ai/claude-code` shipped with a 57MB source map file (`cli.js.map`). The file contained the full, unobfuscated TypeScript source code -- 512,000 lines across 1,900+ files -- exposing the complete architecture of one of the most sophisticated AI coding tools ever built.
 
-### Next Steps
+### What was found
 
-1. **Open your AI assistant** (Claude Code, Cursor, Windsurf, or any AI-powered IDE)
+The architecture analysis revealed:
 
-2. **Use SpecWeave commands** to start building:
+- **43 built-in tools** -- file operations, code search, bash execution, web fetch, agent spawning, and more
+- **4-layer context compression** -- micro, auto, session, and full compression to manage the 200K token window
+- **Multi-agent orchestration** -- spawning sub-agents with isolated contexts, parallel execution, and channel-based communication
+- **MCP protocol** -- Model Context Protocol client for extensible tool and resource discovery
+- **Permission DSL** -- rule-based permission system with interactive approval flows and classifier
+- **Hidden features** -- BUDDY AI pet, KAIROS daemon mode, Auto-Dream memory consolidation
 
-```
-# Plan a new feature
-sw:increment "user authentication with JWT"
+Full analysis: [verified-skill.com/insights/claude-code](https://verified-skill.com/insights/claude-code)
 
-# Execute the implementation
-sw:do
+### Why CCX exists
 
-# Check progress
-sw:progress
+Rather than just archiving the leak, the community began building clean-room implementations in multiple languages. The goal: open-source, language-native alternatives that developers can own, extend, and deploy without dependency on a single vendor.
 
-# Close when done
-sw:done 0001
-```
+[instructkr/claw-code](https://github.com/instructkr/claw-code) (41.7k stars) took a Python metadata/harness approach -- wrapping Claude Code's interface. CCX takes a fundamentally different path: full working implementations with real tool execution, native TUIs, agent systems, and comprehensive test suites in each target language.
 
-> **Invocation varies by tool**: Claude Code uses `/sw:do`, Cursor/Copilot users type `sw:do` or describe the action. See AGENTS.md for details.
+## Repositories
 
-3. **Or describe your project** in natural language (works with command workflows):
+| Language | Repo | Binary Size | Stack |
+|----------|------|-------------|-------|
+| Go | [ccx-go](https://github.com/anton-abyzov/ccx-go) | ~20-30MB | Bubbletea TUI, goroutine agents, testify |
+| Rust | [ccx-rs](https://github.com/anton-abyzov/ccx-rs) | ~20MB | Ratatui TUI, Codex crates, tokio async |
+| .NET | [ccx-dotnet](https://github.com/anton-abyzov/ccx-dotnet) | ~30-50MB | Spectre.Console TUI, AOT compiled, xUnit |
+| Python | [ccx-py](https://github.com/anton-abyzov/ccx-py) | ~50MB | Textual TUI, asyncio agents, pytest |
 
-```
-"Build a real estate listing platform with search, images, and admin dashboard"
-"Create a task management API with authentication"
-"Build an e-commerce platform with Stripe payments"
-```
+## Architecture Overview
 
-4. **SpecWeave will automatically**:
-   - Detect your tech stack (or ask you to choose)
-   - Use the right agents and skills (all pre-installed)
-   - Create strategic documentation
-   - Generate specifications (spec.md, plan.md, tasks.md)
-   - Guide implementation
-   - Generate tests
-
-That's it! All components ready - just use `sw:increment` to start!
-
----
-
-## Project Structure
+All implementations share the same core architecture derived from the leaked source:
 
 ```
-ccx/
-├── .specweave/             # SpecWeave framework
-│   ├── config.json         # Project configuration
-│   ├── increments/         # Features (created via sw:increment)
-│   │   └── 0001-feature/
-│   │       ├── spec.md     # WHAT & WHY
-│   │       ├── plan.md     # HOW
-│   │       ├── tasks.md    # Implementation steps
-│   │       └── reports/    # Analysis reports
-│   └── docs/               # Strategic documentation
-│       ├── internal/       # Internal docs (strategy, architecture)
-│       └── public/         # Published docs
-├── CLAUDE.md               # Instructions for AI assistant
-└── README.md               # This file
+┌─────────────────────────────────────────────┐
+│                  CLI / TUI                   │
+├─────────────────────────────────────────────┤
+│              Core Agent Loop                 │
+│  ┌─────────┐  ┌──────────┐  ┌───────────┐  │
+│  │ Streaming│  │  Tool    │  │  Agent    │  │
+│  │ API      │  │  System  │  │  Spawning │  │
+│  └─────────┘  └──────────┘  └───────────┘  │
+├─────────────────────────────────────────────┤
+│  ┌─────────┐  ┌──────────┐  ┌───────────┐  │
+│  │ Context  │  │Permission│  │   MCP     │  │
+│  │ Compress │  │  DSL     │  │  Protocol │  │
+│  └─────────┘  └──────────┘  └───────────┘  │
+├─────────────────────────────────────────────┤
+│  ┌─────────┐  ┌──────────┐  ┌───────────┐  │
+│  │ Memory  │  │  Skill   │  │  Config   │  │
+│  │ System  │  │  Loader  │  │  Cascade  │  │
+│  └─────────┘  └──────────┘  └───────────┘  │
+└─────────────────────────────────────────────┘
 ```
 
----
+### Shared components across all implementations
 
-## What is SpecWeave?
+- **Tool System**: Pluggable tool interface with permission gating and concurrent execution (43 tools)
+- **Agent Spawning**: Sub-agent orchestration with isolated contexts and inter-agent communication
+- **Context Compression**: 4-layer compression (micro, auto, session, full) for token management
+- **MCP Client**: Model Context Protocol for extensible tool/resource discovery
+- **Permission System**: Rule-based DSL with interactive approval and risk classification
+- **Memory Persistence**: User, project, feedback, and reference memory types
+- **Streaming API**: SSE-based streaming from Claude API with tool_use protocol handling
 
-SpecWeave is a specification-first development framework where:
-- **Specifications are the source of truth** (code follows specs, not reverse)
-- **Commands drive workflow** (`sw:increment` → `sw:do` → `sw:done`)
-- **AI agents work autonomously** (PM, Architect, Security, QA, DevOps)
-- **Works with ANY tech stack** (TypeScript, Python, Go, Rust, Java, .NET, etc.)
-- **Works with multiple AI assistants** (Claude Code, Cursor, Windsurf, etc.)
+## Status
 
----
+| Feature | Go | Rust | .NET | Python |
+|---------|:--:|:----:|:----:|:------:|
+| Project scaffolding | Done | Done | Done | In progress |
+| Claude API streaming | Done | Done | Done | In progress |
+| Tool system (43 tools) | Done | Done | Done | Planned |
+| TUI | Done | Done | Done | Planned |
+| Agent spawning | Done | Done | Done | Planned |
+| Context compression | Done | Done | Done | Planned |
+| MCP protocol | Done | Done | Done | Planned |
+| Permission DSL | Done | Done | Done | Planned |
+| Memory system | Done | Done | Done | Planned |
+| Test suite | Done | Done | Done | Planned |
 
-## Core Workflow
+## Links
 
-```
-sw:increment "feature" → sw:do → sw:progress → sw:done → repeat
-```
+- Original tweet: https://x.com/Fried_rice/status/2038894956459290963
+- Architecture analysis: https://verified-skill.com/insights/claude-code
+- claw-code (Python wrapper): https://github.com/instructkr/claw-code
 
-| Command | Purpose | When to Use |
-|---------|---------|-------------|
-| `sw:increment "feature"` | Plan new increment | Starting new feature |
-| `sw:do` | Execute tasks | Ready to implement |
-| `sw:progress` | Check status | Want to see progress |
-| `sw:validate 0001` | Validate quality | Before completion |
-| `sw:done 0001` | Close increment | Feature finished |
-| `sw:team-lead "feature"` | Parallel agents | Complex multi-domain features |
-| `sw:progress-sync` | Sync to external tools | Export to GitHub/JIRA/ADO |
+## License
 
-For complex features spanning frontend, backend, and database — `sw:team-lead` splits work across parallel agents for faster delivery. [Learn more](https://verified-skill.com/docs/guides/agent-teams-and-swarms).
-
-See `CLAUDE.md` for complete workflow guide.
-
----
-
-## File Organization
-
-**Keep project root clean!** All AI-generated files go into increment folders:
-
-```
-CORRECT:
-.specweave/increments/0001-auth/
-├── reports/analysis.md
-└── logs/execution.log
-
-WRONG:
-project-root/
-├── execution.log
-└── analysis.md
-```
-
----
-
-## AI Assistant Compatibility
-
-SpecWeave works with:
-- **Claude Code** (recommended) - Full command support with auto-activation
-- **Cursor** - Commands via composer
-- **Windsurf** - Cascade mode compatible
-- **Any AI IDE** - Supports commands via prompts or native integrations
-
-**Setup**: See `CLAUDE.md` for AI assistant instructions.
-
----
-
-## Learn More
-
-- **Documentation**: https://verified-skill.com
-- **GitHub**: https://github.com/anton-abyzov/specweave
-- **Quick Reference**: See `CLAUDE.md` in your project
-
----
-
-## Ready to Build?
-
-**Start with your first feature**:
-```bash
-sw:increment "describe your feature here"
-```
-
-Or just describe what you want to build, and SpecWeave will guide you through the process!
-
----
-
-**Documentation Philosophy**: {{DOCUMENTATION_APPROACH}}
-
-**Tech Stack**: Auto-detected from project files (package.json, requirements.txt, etc.)
+MIT
