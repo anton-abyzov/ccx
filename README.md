@@ -1,30 +1,156 @@
-# CCX
+# ccx
 
-Community rewrites of an AI coding assistant CLI in Go, Rust, and .NET.
+**A SpecWeave project** - where specifications drive development.
 
-## Repositories
+## Quick Start
 
-| Language | Repo | Binary Size | Key Feature |
-|----------|------|-------------|-------------|
-| Go | [ccx-go](https://github.com/anton-abyzov/ccx-go) | ~20-30MB | Goroutine agents, Bubbletea TUI |
-| Rust | [ccx-rs](https://github.com/anton-abyzov/ccx-rs) | ~20MB | 5ms startup, OS-native sandbox, Codex crates |
-| .NET | [ccx-dotnet](https://github.com/anton-abyzov/ccx-dotnet) | ~30-50MB | AOT compiled, enterprise-focused, Spectre.Console |
+Your project is initialized! Now describe what you want to build.
 
-## Architecture
+### Next Steps
 
-All three implementations share the same architecture based on analysis of a 512K-line TypeScript codebase:
+1. **Open your AI assistant** (Claude Code, Cursor, Windsurf, or any AI-powered IDE)
 
-- **Tool System**: Pluggable tools with permission gating
-- **Agent Spawning**: Multi-agent orchestration with inter-agent messaging
-- **TUI**: Rich terminal UI with markdown rendering and syntax highlighting
-- **Context Management**: Multi-layer compression (micro, auto, session, full)
-- **MCP Protocol**: Model Context Protocol for tool/resource discovery
-- **Permission System**: Rule-based DSL with interactive prompts
+2. **Use SpecWeave commands** to start building:
 
-## Status
+```
+# Plan a new feature
+sw:increment "user authentication with JWT"
 
-All three implementations are in early development (Phase 1: Foundation).
+# Execute the implementation
+sw:do
 
-## License
+# Check progress
+sw:progress
 
-MIT (Go, .NET) | MIT + Apache-2.0 (Rust, for Codex-derived crates)
+# Close when done
+sw:done 0001
+```
+
+> **Invocation varies by tool**: Claude Code uses `/sw:do`, Cursor/Copilot users type `sw:do` or describe the action. See AGENTS.md for details.
+
+3. **Or describe your project** in natural language (works with command workflows):
+
+```
+"Build a real estate listing platform with search, images, and admin dashboard"
+"Create a task management API with authentication"
+"Build an e-commerce platform with Stripe payments"
+```
+
+4. **SpecWeave will automatically**:
+   - Detect your tech stack (or ask you to choose)
+   - Use the right agents and skills (all pre-installed)
+   - Create strategic documentation
+   - Generate specifications (spec.md, plan.md, tasks.md)
+   - Guide implementation
+   - Generate tests
+
+That's it! All components ready - just use `sw:increment` to start!
+
+---
+
+## Project Structure
+
+```
+ccx/
+├── .specweave/             # SpecWeave framework
+│   ├── config.json         # Project configuration
+│   ├── increments/         # Features (created via sw:increment)
+│   │   └── 0001-feature/
+│   │       ├── spec.md     # WHAT & WHY
+│   │       ├── plan.md     # HOW
+│   │       ├── tasks.md    # Implementation steps
+│   │       └── reports/    # Analysis reports
+│   └── docs/               # Strategic documentation
+│       ├── internal/       # Internal docs (strategy, architecture)
+│       └── public/         # Published docs
+├── CLAUDE.md               # Instructions for AI assistant
+└── README.md               # This file
+```
+
+---
+
+## What is SpecWeave?
+
+SpecWeave is a specification-first development framework where:
+- **Specifications are the source of truth** (code follows specs, not reverse)
+- **Commands drive workflow** (`sw:increment` → `sw:do` → `sw:done`)
+- **AI agents work autonomously** (PM, Architect, Security, QA, DevOps)
+- **Works with ANY tech stack** (TypeScript, Python, Go, Rust, Java, .NET, etc.)
+- **Works with multiple AI assistants** (Claude Code, Cursor, Windsurf, etc.)
+
+---
+
+## Core Workflow
+
+```
+sw:increment "feature" → sw:do → sw:progress → sw:done → repeat
+```
+
+| Command | Purpose | When to Use |
+|---------|---------|-------------|
+| `sw:increment "feature"` | Plan new increment | Starting new feature |
+| `sw:do` | Execute tasks | Ready to implement |
+| `sw:progress` | Check status | Want to see progress |
+| `sw:validate 0001` | Validate quality | Before completion |
+| `sw:done 0001` | Close increment | Feature finished |
+| `sw:team-lead "feature"` | Parallel agents | Complex multi-domain features |
+| `sw:progress-sync` | Sync to external tools | Export to GitHub/JIRA/ADO |
+
+For complex features spanning frontend, backend, and database — `sw:team-lead` splits work across parallel agents for faster delivery. [Learn more](https://verified-skill.com/docs/guides/agent-teams-and-swarms).
+
+See `CLAUDE.md` for complete workflow guide.
+
+---
+
+## File Organization
+
+**Keep project root clean!** All AI-generated files go into increment folders:
+
+```
+CORRECT:
+.specweave/increments/0001-auth/
+├── reports/analysis.md
+└── logs/execution.log
+
+WRONG:
+project-root/
+├── execution.log
+└── analysis.md
+```
+
+---
+
+## AI Assistant Compatibility
+
+SpecWeave works with:
+- **Claude Code** (recommended) - Full command support with auto-activation
+- **Cursor** - Commands via composer
+- **Windsurf** - Cascade mode compatible
+- **Any AI IDE** - Supports commands via prompts or native integrations
+
+**Setup**: See `CLAUDE.md` for AI assistant instructions.
+
+---
+
+## Learn More
+
+- **Documentation**: https://verified-skill.com
+- **GitHub**: https://github.com/anton-abyzov/specweave
+- **Quick Reference**: See `CLAUDE.md` in your project
+
+---
+
+## Ready to Build?
+
+**Start with your first feature**:
+```bash
+sw:increment "describe your feature here"
+```
+
+Or just describe what you want to build, and SpecWeave will guide you through the process!
+
+---
+
+**Documentation Philosophy**: {{DOCUMENTATION_APPROACH}}
+
+**Tech Stack**: Auto-detected from project files (package.json, requirements.txt, etc.)

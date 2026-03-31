@@ -1,0 +1,43 @@
+# Dependencies
+node_modules/
+
+# Environment
+.env
+.env.local
+.env.*.local
+*.env
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Temporary
+*.tmp
+.temp/
+tmp/
+
+# Cloned repositories (external git repos - not submodules)
+repositories/
+
+# SpecWeave
+.specweave/cache/
+.specweave/increments/*/logs/
+.specweave/increments/*/test-results/
+.specweave/docs-site-internal/
+.claude-plugin/
+plugins/
+vskill.lock
