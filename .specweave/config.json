@@ -141,6 +141,19 @@
             "repo": "ccx-dotnet"
           }
         }
+      },
+      {
+        "id": "ccx-py",
+        "path": "repositories/anton-abyzov/ccx-py",
+        "name": "ccx-py",
+        "prefix": "CPY",
+        "githubUrl": "https://github.com/anton-abyzov/ccx-py.git",
+        "sync": {
+          "github": {
+            "owner": "anton-abyzov",
+            "repo": "ccx-py"
+          }
+        }
       }
     ]
   }
