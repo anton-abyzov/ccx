@@ -2,6 +2,8 @@
 
 Open-source, language-native AI coding assistant implementations. Community-built alternatives to proprietary tools.
 
+![CCX-RS Terminal UI](https://raw.githubusercontent.com/anton-abyzov/ccx-rs/main/assets/screenshot.png)
+
 ## About
 
 CCX is a family of clean-room AI coding assistant implementations, built as open-source alternatives to proprietary tools. Each implementation is designed from the ground up using publicly documented API specifications and common patterns in AI-assisted development.
@@ -26,12 +28,12 @@ The goal: open-source, language-native alternatives that developers can own, ext
 
 ## Repositories
 
-| Language | Repo | Binary Size | Stack |
-|----------|------|-------------|-------|
-| Go | [ccx-go](https://github.com/anton-abyzov/ccx-go) | ~20-30MB | Bubbletea TUI, goroutine agents, testify |
-| Rust | [ccx-rs](https://github.com/anton-abyzov/ccx-rs) | ~20MB | Ratatui TUI, Codex crates, tokio async |
-| .NET | [ccx-dotnet](https://github.com/anton-abyzov/ccx-dotnet) | ~30-50MB | Spectre.Console TUI, AOT compiled, xUnit |
-| Python | [ccx-py](https://github.com/anton-abyzov/ccx-py) | ~50MB | Textual TUI, asyncio agents, pytest |
+| Language | Repo | Binary Size | Crates/Packages | Stack |
+|----------|------|-------------|-----------------|-------|
+| Rust | [ccx-rs](https://github.com/anton-abyzov/ccx-rs) | ~4.7MB | 14 crates | Ratatui TUI, tokio async, 11 tools |
+| Go | [ccx-go](https://github.com/anton-abyzov/ccx-go) | ~20-30MB | -- | Bubbletea TUI, goroutine agents, testify |
+| .NET | [ccx-dotnet](https://github.com/anton-abyzov/ccx-dotnet) | ~30-50MB | -- | Spectre.Console TUI, AOT compiled, xUnit |
+| Python | [ccx-py](https://github.com/anton-abyzov/ccx-py) | ~50MB | -- | Textual TUI, asyncio agents, pytest |
 
 ## Architecture Overview
 
