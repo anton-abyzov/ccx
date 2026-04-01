@@ -1,27 +1,26 @@
 # CCX -- Community Claude Code eXtended
 
-Open-source, language-native reimplementations of Claude Code's AI coding assistant. Born from a source map leak, built by the community.
+Open-source, language-native AI coding assistant implementations. Community-built alternatives to proprietary tools.
 
-## Backstory
+## About
 
-On March 31, 2026, security researcher Chaofan Shou ([@Fried_rice](https://x.com/Fried_rice/status/2038894956459290963)) discovered that Anthropic's npm package `@anthropic-ai/claude-code` shipped with a 57MB source map file (`cli.js.map`). The file contained the full, unobfuscated TypeScript source code -- 512,000 lines across 1,900+ files -- exposing the complete architecture of one of the most sophisticated AI coding tools ever built.
+CCX is a family of clean-room AI coding assistant implementations, built as open-source alternatives to proprietary tools. Each implementation is designed from the ground up using publicly documented API specifications and common patterns in AI-assisted development.
 
-### What was found
+### Architecture
 
-The architecture analysis revealed:
+The implementations share a common architecture inspired by analysis of Claude Code's design patterns:
 
 - **43 built-in tools** -- file operations, code search, bash execution, web fetch, agent spawning, and more
 - **4-layer context compression** -- micro, auto, session, and full compression to manage the 200K token window
 - **Multi-agent orchestration** -- spawning sub-agents with isolated contexts, parallel execution, and channel-based communication
 - **MCP protocol** -- Model Context Protocol client for extensible tool and resource discovery
 - **Permission DSL** -- rule-based permission system with interactive approval flows and classifier
-- **Hidden features** -- BUDDY AI pet, KAIROS daemon mode, Auto-Dream memory consolidation
 
 Full analysis: [verified-skill.com/insights/claude-code](https://verified-skill.com/insights/claude-code)
 
 ### Why CCX exists
 
-Rather than just archiving the leak, the community began building clean-room implementations in multiple languages. The goal: open-source, language-native alternatives that developers can own, extend, and deploy without dependency on a single vendor.
+The goal: open-source, language-native alternatives that developers can own, extend, and deploy without dependency on a single vendor.
 
 [instructkr/claw-code](https://github.com/instructkr/claw-code) (41.7k stars) took a Python metadata/harness approach -- wrapping Claude Code's interface. CCX takes a fundamentally different path: full working implementations with real tool execution, native TUIs, agent systems, and comprehensive test suites in each target language.
 
@@ -36,7 +35,7 @@ Rather than just archiving the leak, the community began building clean-room imp
 
 ## Architecture Overview
 
-All implementations share the same core architecture derived from the leaked source:
+All implementations share a common architecture based on publicly documented patterns:
 
 ```
 ┌─────────────────────────────────────────────┐
@@ -87,7 +86,6 @@ All implementations share the same core architecture derived from the leaked sou
 
 ## Links
 
-- Original tweet: https://x.com/Fried_rice/status/2038894956459290963
 - Architecture analysis: https://verified-skill.com/insights/claude-code
 - claw-code (Python wrapper): https://github.com/instructkr/claw-code
 
