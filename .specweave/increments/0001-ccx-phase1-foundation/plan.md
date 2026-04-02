@@ -4,7 +4,7 @@
 
 ### Multi-Language Approach
 
-CCX implements the same AI coding assistant architecture across four languages, each leveraging its ecosystem's strengths:
+CCX (Community Code Extended) implements the same AI coding assistant architecture across four languages, each leveraging its ecosystem's strengths:
 
 | Language | HTTP | TUI | Async | Types | Testing |
 |----------|------|-----|-------|-------|---------|

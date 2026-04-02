@@ -2,11 +2,11 @@
 
 ## Overview
 
-Build the foundation layer of the CCX (Claude Code eXtended) project across four language implementations: Go, Rust, .NET, and Python. Each implementation provides a working AI coding assistant CLI with API client, tool system, TUI, agent spawning, context compression, MCP integration, and permission controls.
+Build the foundation layer of the CCX (Community Code Extended) project across four language implementations: Go, Rust, .NET, and Python. Each implementation provides a working AI coding assistant CLI with API client, tool system, TUI, agent spawning, context compression, MCP integration, and permission controls.
 
 ## Background
 
-On March 31, 2026, the Claude Code CLI system prompt was found embedded in plaintext within the npm package. The ~100KB prompt exposed the complete architecture. CCX is a collection of clean-room implementations built from these architectural insights.
+CCX (Community Code Extended) is a custom AI coding assistant built from the ground up using publicly documented API specifications and common patterns in AI-assisted development. While inspired by the general category of AI coding CLIs, CCX is its own application with independent architecture and language-native implementations.
 
 ---
 
