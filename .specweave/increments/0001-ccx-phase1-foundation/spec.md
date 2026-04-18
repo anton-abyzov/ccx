@@ -56,11 +56,11 @@ CCX (Community Code Extended) is a custom AI coding assistant built from the gro
 - [x] AC-US3-01: Phase 1 API client with HttpClient streaming
 - [x] AC-US3-02: Phase 1 tool system with interface-based dispatch
 - [x] AC-US3-03: Phase 1 query engine structure
-- [ ] AC-US3-04: Spectre.Console TUI (Phases 2-6)
-- [ ] AC-US3-05: Full permission system (Phases 2-6)
-- [ ] AC-US3-06: Context compaction (Phases 2-6)
-- [ ] AC-US3-07: MCP client (Phases 2-6)
-- [ ] AC-US3-08: All tests passing
+- [x] AC-US3-04: Spectre.Console TUI (Phases 2-6)
+- [x] AC-US3-05: Full permission system (Phases 2-6)
+- [x] AC-US3-06: Context compaction (Phases 2-6)
+- [x] AC-US3-07: MCP client (Phases 2-6)
+- [x] AC-US3-08: All tests passing (138/138, net9.0)
 
 ### US-004: Python Implementation (ccx-py)
 
